@@ -3,6 +3,7 @@ import {
   Controller,
   Delete,
   Get,
+  NotFoundException,
   Param,
   ParseIntPipe,
   Post,
@@ -23,7 +24,11 @@ export class UsersController {
 
   @Get(':id')
   async getUser(@Param('id', ParseIntPipe) id: number) {
-    return this.userService.getUser(id);
+    try {
+      return this.userService.getUser(id);
+    } catch (error) {
+      return 'Erro interno do servidor';
+    }
   }
 
   @Post('')
@@ -38,6 +43,10 @@ export class UsersController {
 
   @Delete(':id')
   async deleteUser(@Param('id', ParseIntPipe) id: number) {
-    return this.userService.deleteUser(id);
+    try {
+      return this.userService.deleteUser(id);
+    } catch (error) {
+      return 'Erro interno do servidor';
+    }
   }
 }
