@@ -22,24 +22,24 @@ export class UsersController {
     return this.userService.getUsers();
   }
 
-  @Get(':id')
-  async getUser(@Param('id', ParseIntPipe) id: number) {
-    try {
-      return this.userService.getUser(id);
-    } catch (error) {
-      return 'Erro interno do servidor';
-    }
-  }
+  // @Get(':id')
+  // async getUser(@Param('id', ParseIntPipe) id: number) {
+  //   try {
+  //     return this.userService.getUser(id);
+  //   } catch (error) {
+  //     return 'Erro interno do servidor';
+  //   }
+  // }
 
   @Post('')
   async createUser(@Body() userDTO: CreateUserDTO): Promise<User> {
     return this.userService.createUser(userDTO);
   }
 
-  @Put('')
-  async updateUser(@Body() userDTO: CreateUserDTO): Promise<User> {
-    return this.userService.updateUser(userDTO);
-  }
+  // @Put('')
+  // async updateUser(@Body() userDTO: CreateUserDTO): Promise<User> {
+  //   return this.userService.updateUser(userDTO);
+  // }
 
   @Put(':id')
   async updateUserById(

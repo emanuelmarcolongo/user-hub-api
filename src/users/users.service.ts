@@ -3,7 +3,7 @@ import {
   Injectable,
   NotFoundException,
 } from '@nestjs/common';
-import { User, Prisma } from '@prisma/client';
+import { User } from '@prisma/client';
 import { UsersRepository } from './users.repository';
 import { CreateUserDTO } from './dto/createUserDTO';
 
@@ -20,7 +20,7 @@ export class UsersService {
   }
 
   async getUsers(): Promise<User[]> {
-    return this.usersRepository.getUsers();
+    return await this.usersRepository.getUsers();
   }
 
   async createUser(data: CreateUserDTO): Promise<User> {
@@ -41,13 +41,13 @@ export class UsersService {
   async updateUserById(id: number, data: CreateUserDTO) {
     const userExists = await this.usersRepository.getUser(id);
 
+    if (!userExists) throw new NotFoundException('Usuário não encontrado');
+
     const emailInUse = await this.usersRepository.getUserByEmail(data.email);
 
     if (emailInUse.id !== userExists.id) {
-      throw new NotFoundException('Email pertence a outro usuário!');
+      throw new ConflictException('Email pertence a outro usuário!');
     }
-
-    if (!userExists) throw new NotFoundException('Usuário não encontrado');
 
     return this.usersRepository.updateUserById(id, data);
   }
@@ -61,7 +61,7 @@ export class UsersService {
   }
 
   async deleteUser(id: number): Promise<User> {
-    const userExists = this.usersRepository.getUser(id);
+    const userExists = await this.usersRepository.getUser(id);
 
     if (!userExists) throw new NotFoundException('Usuário não encontrado');
 
