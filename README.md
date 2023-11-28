@@ -9,6 +9,8 @@
   <img alt="Postgresql" src="https://img.shields.io/badge/postgres-%23316192.svg?style=for-the-badge&logo=postgresql&logoColor=white" />
 </p>
 
+
+
 ## Descricao:
 
 Este é um projeto de aplicação CRUD de usuários desenvolvido utilizando o framework NestJS, o ORM Prisma e o banco de dados PostgreSQL. Esta aplicação permite a criação, leitura, atualização e exclusão de registros de usuários.
@@ -26,8 +28,8 @@ Certifique-se de ter as seguintes ferramentas instaladas em sua máquina antes d
 ### Clone o Repositório
 
 ```bash
-$ git clone https://github.com/emanuelmarcolongo/users-hub-api
-$ cd users-hub-api
+$ git clone https://github.com/emanuelmarcolongo/user-hub-api
+$ cd user-hub-api
 ```
 ### Instalação
 
@@ -67,6 +69,117 @@ $ npm run start:prod
 ```
 
 ### Conecte com o front para ver o resultado!
+
+## Documentação
+
+## Endpoints
+
+<details>
+  <summary>GET /users</summary>
+  
+ - **Endpoint:** `GET /users`
+- **Descrição:** Resgata a lista de todos os usuários cadastrados.
+- **Resposta:** Retorna um array de objetos usuário
+
+  ```bash
+  status: 200 
+  [
+  {
+    "id": 1,
+    "email": "example@email.com",
+    "name": "Example",
+    "password": "strongPassword123!@#",
+    "imgUrl": "https://urlimage.jpg",
+    "isDeleted": false
+  },
+  ...]
+  ```
+  
+</details>
+  
+
+<details>
+  <summary>GET /users/:id</summary>
+  
+- **Endpoint:** `GET /users/:id`
+- **Descrição:** Resgata um usuáro único pelo seu ID.
+- **Resposta:**
+
+  status 200:
+  ```bash
+  {
+    "id": 1,
+    "email": "example@email.com",
+    "name": "Example",
+    "password": "strongPassword123!@#",
+    "imgUrl": "https://urlimage.jpg",
+    "isDeleted": false
+  }
+  ```
+  status 404:
+ ```bash
+  {
+  "message": "Não há usuário com esse nome",
+  "error": "Not Found",
+  "statusCode": 404
+  }
+  ```
+  
+</details>
+
+
+<details>
+  <summary>POST /users</summary>
+  
+ - **Endpoint:** `Post /users`
+- **Descrição:** Registra um novo usuário no banco de dados.
+- **Corpo:**
+  ```bash
+  {
+    "email": "example@email.com",
+    "name": "Example",
+    "password": "strongPassword123!@#",
+    "imgUrl": "https://urlimage.jpg",
+  }
+  ```
+- **Resposta:**
+
+  status 201 - Retorna o usuário criado
+  ```bash
+  {
+    "id": 1,
+    "email": "example@email.com",
+    "name": "Example",
+    "password": "strongPassword123!@#",
+    "imgUrl": "https://urlimage.jpg",
+    "isDeleted": false
+  }
+  ```
+  status 400 - (invalid e-mail):
+ ```bash
+  {
+  "message": [
+    "email must be an email"
+  ],
+  "error": "Bad Request",
+  "statusCode": 400
+  }
+  ```
+ status 409 - (email em uso):
+ ```bash
+  {
+  "message": "Email já cadastrado",
+  "error": "Conflict",
+  "statusCode": 409
+  }
+  ```
+  
+</details>
+
+
+
+
+
 
 
 ## Licença
