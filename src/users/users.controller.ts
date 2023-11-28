@@ -49,6 +49,11 @@ export class UsersController {
     return this.userService.updateUserById(id, userDTO);
   }
 
+  @Put('delete/:id')
+  async updateIsDeleted(@Param('id', ParseIntPipe) id: number): Promise<User> {
+    return this.userService.updatedIsDeleted(id);
+  }
+
   @Delete(':id')
   async deleteUser(@Param('id', ParseIntPipe) id: number) {
     try {

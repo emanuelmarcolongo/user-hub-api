@@ -52,6 +52,14 @@ export class UsersService {
     return this.usersRepository.updateUserById(id, data);
   }
 
+  async updatedIsDeleted(id: number) {
+    const userExists = await this.usersRepository.getUser(id);
+
+    if (!userExists) throw new NotFoundException('Usuário não encontrado');
+
+    return this.usersRepository.updateIsDeleted(id, userExists);
+  }
+
   async deleteUser(id: number): Promise<User> {
     const userExists = this.usersRepository.getUser(id);
 
