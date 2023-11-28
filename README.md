@@ -98,34 +98,6 @@ $ npm run start:prod
 </details>
   
 
-<details>
-  <summary>GET /users/:id</summary>
-  
-- **Endpoint:** `GET /users/:id`
-- **Descrição:** Resgata um usuáro único pelo seu ID.
-- **Resposta:**
-
-  status 200:
-  ```bash
-  {
-    "id": 1,
-    "email": "example@email.com",
-    "name": "Example",
-    "password": "strongPassword123!@#",
-    "imgUrl": "https://urlimage.jpg",
-    "isDeleted": false
-  }
-  ```
-  status 404:
- ```bash
-  {
-  "message": "Não há usuário com esse nome",
-  "error": "Not Found",
-  "statusCode": 404
-  }
-  ```
-  
-</details>
 
 
 <details>
@@ -175,6 +147,118 @@ $ npm run start:prod
   ```
   
 </details>
+
+<details>
+  <summary>PUT /users/:id</summary>
+  
+- **Endpoint:** `PUT /users/:id`
+- **Descrição:** Edita um usuário com determinado ID.
+-  **Corpo:**
+  ```bash
+  {
+    "email": "example@email.com",
+    "name": "Example",
+    "password": "strongPassword123!@#",
+    "imgUrl": "https://urlimage.jpg",
+  }
+  ```
+- **Resposta:**
+
+- 
+
+  status 200:
+  ```bash
+  {
+    "id": 1,
+    "email": "example@email.com",
+    "name": "Example",
+    "password": "strongPassword123!@#",
+    "imgUrl": "https://urlimage.jpg",
+    "isDeleted": false
+  }
+  ```
+
+   status 409 (email pertence a outro usuário):
+ ```bash
+  {
+  "message": "Email pertence a outro usuário!",
+  "error": "Conflict",
+  "statusCode": 409
+}
+  ```
+  status 404 (id de usuário não encontrado):
+ ```bash
+  {
+  "message": "Usuário não encontrado",
+  "error": "Not Found",
+  "statusCode": 404
+}
+  ```
+  
+</details>
+
+<details>
+  <summary>PUT /users/delete/:id</summary>
+  
+- **Endpoint:** `PUT /users/:id`
+- **Descrição:** Edita o status isDeleted para true do usuário com o ID especificado.
+- **Resposta:**
+
+  status 200:
+  ```bash
+  {
+    "id": 1,
+    "email": "example@email.com",
+    "name": "Example",
+    "password": "strongPassword123!@#",
+    "imgUrl": "https://urlimage.jpg",
+    "isDeleted": true
+  }
+  ```
+  
+  status 404 (id de usuário não encontrado):
+ ```bash
+  {
+  "message": "Usuário não encontrado",
+  "error": "Not Found",
+  "statusCode": 404
+}
+  ```
+
+  
+</details>
+
+<details>
+  <summary>DELETE /users/:id</summary>
+  
+- **Endpoint:** `DELETE/users/:id`
+- **Descrição:** Deleta o usuário com o ID especificado.
+- **Resposta:**
+
+  status 200:
+  ```bash
+  {
+    "id": 1,
+    "email": "example@email.com",
+    "name": "Example",
+    "password": "strongPassword123!@#",
+    "imgUrl": "https://urlimage.jpg",
+    "isDeleted": false
+  }
+  ```
+  
+  status 404 (id de usuário não encontrado):
+ ```bash
+  {
+  "message": "Usuário não encontrado",
+  "error": "Not Found",
+  "statusCode": 404
+}
+  ```
+
+  
+</details>
+
 
 
 
