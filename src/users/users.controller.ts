@@ -41,6 +41,14 @@ export class UsersController {
     return this.userService.updateUser(userDTO);
   }
 
+  @Put(':id')
+  async updateUserById(
+    @Param('id', ParseIntPipe) id: number,
+    @Body() userDTO: CreateUserDTO,
+  ): Promise<User> {
+    return this.userService.updateUserById(id, userDTO);
+  }
+
   @Delete(':id')
   async deleteUser(@Param('id', ParseIntPipe) id: number) {
     try {

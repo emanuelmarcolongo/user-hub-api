@@ -37,6 +37,21 @@ export class UsersRepository {
         name: user.name,
         password: user.password,
         imgUrl: user.imgUrl,
+        email: user.email,
+      },
+    });
+  }
+
+  async updateUserById(id: number, user: CreateUserDTO) {
+    return await this.prisma.user.update({
+      where: {
+        id,
+      },
+      data: {
+        name: user.name,
+        password: user.password,
+        imgUrl: user.imgUrl,
+        email: user.email,
       },
     });
   }

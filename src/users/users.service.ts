@@ -24,7 +24,7 @@ export class UsersService {
   }
 
   async createUser(data: CreateUserDTO): Promise<User> {
-    const userExists = this.usersRepository.getUserByEmail(data.email);
+    const userExists = await this.usersRepository.getUserByEmail(data.email);
 
     if (userExists) throw new ConflictException('Email já cadastrado');
     return this.usersRepository.createUser(data);
@@ -36,6 +36,20 @@ export class UsersService {
     if (!userExists) throw new NotFoundException('Usuário não encontrado');
 
     return this.usersRepository.updateUser(data);
+  }
+
+  async updateUserById(id: number, data: CreateUserDTO) {
+    const userExists = await this.usersRepository.getUser(id);
+
+    const emailInUse = await this.usersRepository.getUserByEmail(data.email);
+
+    if (emailInUse.id !== userExists.id) {
+      throw new NotFoundException('Email pertence a outro usuário!');
+    }
+
+    if (!userExists) throw new NotFoundException('Usuário não encontrado');
+
+    return this.usersRepository.updateUserById(id, data);
   }
 
   async deleteUser(id: number): Promise<User> {
