@@ -16,4 +16,5 @@ model User {
   name  String
   password String
   imgUrl String?
+  isDeleted Boolean @default(false)
 }
