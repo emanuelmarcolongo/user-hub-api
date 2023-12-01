@@ -43,9 +43,9 @@ export class UsersService {
 
     if (!userExists) throw new NotFoundException('Usuário não encontrado');
 
-    const emailInUse = await this.usersRepository.getUserByEmail(data.email);
+    const userWithEmail = await this.usersRepository.getUserByEmail(data.email);
 
-    if (emailInUse && emailInUse.id !== id) {
+    if (userWithEmail && userWithEmail.id !== id) {
       throw new ConflictException('Email pertence a outro usuário!');
     }
 
