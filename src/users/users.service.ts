@@ -45,11 +45,11 @@ export class UsersService {
 
     const emailInUse = await this.usersRepository.getUserByEmail(data.email);
 
-    if (emailInUse.id !== userExists.id) {
+    if (emailInUse && emailInUse.id !== id) {
       throw new ConflictException('Email pertence a outro usuário!');
     }
 
-    return this.usersRepository.updateUserById(id, data);
+    return await this.usersRepository.updateUserById(id, data);
   }
 
   async updatedIsDeleted(id: number) {
